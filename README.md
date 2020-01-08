@@ -36,11 +36,18 @@ source  ~/nanodegree_ws/devel/setup.bash
 rosrun Udacity-Capstone-CPP-Nanodegree simulation
 ```
 #### 5.Run the plotter
+One the nodes are running you can graph the control system to see how it responds and make further adjustments to the control system, we will use rqt_plot to do this.
+```
+source /opt/ros/{distro}/setup.bash
+source  ~/nanodegree_ws/devel/setup.bash
+rosrun rqt_plot rqt_plot
+```
+You can now add the topics that being sent on the system, by adding the topics using the "+" button
+ ADD PHOTO
 
 
-How to run using ros and requierements (simulations also)
 
-how it works
+
 
 System control class
 

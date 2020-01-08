@@ -75,17 +75,12 @@ The control system class (control_system.cpp) is a class that implements a PID s
 ### Main Parameters
 The main parameters of this system are in the private sectoin of the class so that a user can't modify data without using setters and getters, the parameters are as follows
 
-**double _refresh_time{.1}** : the refresh rate of the system (this has to run at the same frequency as the update function is being run)
-
-**double _kp{1}, _kd{1}, _ki{1}** : tuning parameters of system
-
-**int _saturationLOW{0}, _saturationHIGH{100}** : saturation range (this helpes the system have limit so that the output is controlled)
-
-**double _prev_derivative{0}, _prev_error{0}** : preveious values to take deviative and integral value
-
-**double integral** : accumulation of the error to get integral
-//reference of the system
-**double _reference{0}** : the reference of the system
+- **double _refresh_time{.1}** : the refresh rate of the system (this has to run at the same frequency as the update function is being run)
+- **double _kp{1}, _kd{1}, _ki{1}** : tuning parameters of system
+- **int _saturationLOW{0}, _saturationHIGH{100}** : saturation range (this helpes the system have limit so that the output is controlled)
+- **double _prev_derivative{0}, _prev_error{0}** : preveious values to take deviative and integral value
+- **double integral** : accumulation of the error to get integral
+- **double _reference{0}** : the reference of the system
 
 ### Constructors
 This system uses contructor overloading to have flexibility on the use and how a user can start the system.

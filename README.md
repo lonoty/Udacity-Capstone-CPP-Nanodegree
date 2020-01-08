@@ -68,10 +68,38 @@ ki: 0.0
 kd: 0.0" 
 ```
 # Code documentation
+The system uses ROS messages to communicate from node to node, in this case the control system by it self is a node that recieves the encoder velocity data and outputs the proper PWM signal to be process. Meanwhile the there must be another node or nodes that actually interpert the PWM and outputs it to the motor it can be a moto-rcontroller that takes in a byte 0-255 to represent the duty cycle of the PWM. Another system then must inteprete the motor movement using encoder and return the velocity of the system. This can be seen as the node representation of the system (see image).
+PUT IMAGE HERE
 ## Control System Class
+The control system class (control_system.cpp) is a class that implements a PID system in a class where there are tuneable parameters, refresh time and reference. The system by it self can be implemented on anything that needs a pid, this is due to the flexibility and versatibility of the system, it only applies a general PID system meanwhile the velocity control adapts it to motor velocity needs.
+### Main Parameters
+The main parameters of this system are in the private sectoin of the class so that a user can't modify data without using setters and getters, the parameters are as follows
+```
+double _refresh_time{.1};
+//tuning parameters of system
+double _kp{1}, _kd{1}, _ki{1};
+//saturation range (this helpes the system have limit so that the output is controlled)
+int _saturationLOW{0}, _saturationHIGH{100};
+//preveious values to take deviative and integral value
+double _prev_derivative{0}, _prev_error{0};
+//accumulation of the error to get integral
+double integral;
+//reference of the system
+double _reference{0};
+```
+### Constructors
+This system uses contructor overloading to have flexibility on the use and how a user can start the system.
+```
+control_sys(double kp, double ki, double kd);
+control_sys(double kp, double ki, double kd, double refresh);
+control_sys(double kp, double ki, double kd, double refresh, int satLOW, int satHIGH, double reference);
+```
 ## Velocity Control
 ## Simulation
 
+# My prototype 
+
+# rubric
 
 System control class
 

@@ -108,7 +108,7 @@ double get_kp();
 double get_ki();
 double get_kd();
 ```
-### functions
+### Functions
 The system only consist of two functions:
 
 **int update(int feedback)** : This function is the main algorithm of the PID implementation where the feedback (the encoder response) is taken as an argument then it returns an int tht is the Output PWM. Note: This function has to be called at the same time intervals set as the refresh rate. This is due to the discrete properties of this controller.
@@ -116,17 +116,48 @@ The system only consist of two functions:
 **int saturate(int value)** : This fuction is a saturation fuction that allows for a maximum and minimum output to be retuned, this helps to the system to not exeed the physical/electrical demands of a system.
 
 ## Velocity Control
+The velocity Control program (velocity_control.cpp) is the contains main code where the it implements the PID system class to the needs of velocity control and also integrates it with ROS messages so it can be used as a node.
+
+### Node Manager
+Since whe are using ROS we created a class that manages the nodes subscribers and publishers so when ever an external node publishes data to the system, node manager will call a callback function to allow the data to be processed. 
+
+#### Constructor
+
+The constructor first initiates 2 control_sys classes with preset parameters and pushes it to a vector that stores the objects. Then it initiates all the comunication protocols used by ROS, to the desired callback functions. The protocols allow for the the user to input tune_parameters, encoder_velocity, and the references, Then it outputs the desired PWM data.
+```
+motors.push_back(control_sys(0.1, 3, 0.001, 0.05, 0, 255, 0));
+motors.push_back(control_sys(0.1, 2, 0.001, 0.05, 0, 255, 0));
+_motor_pub = _n.advertise<capstone::pwm_output>("motor_pwm", 1000);
+_sub = _n.subscribe("encoder_vel", 1000, &node_manager::encoder_velocity_callback, this);
+_tune_sub = _n.subscribe("tune_param", 1000, &node_manager::control_tune_callback, this);
+_ref_sub = _n.subscribe("reference", 1000, &node_manager::control_reference_callback, this);
+```
+#### Messages
+ROS requires there to be communication protocals that send specific data called messages, this messages are then handeled by the system. For this applicatoin I created 4 message structures which ecapsulates a structure of data. 
+
+**encoder_value.msg** : is used to send the speed of the 2 motor (right and left)
+
+**pwm_ouput** : is used to send the pwm output of the 2 motors (right and left)
+
+**ref_param** : is used to send the refence (target speed of a motor) and decide which motor is needed (the right 0, or the left 1)
+
+**tune_param** : is used to allow the user to send tuning parameters of the system (kp, ki, kd) and to what motor to send it (the right 0, or the left 1)
+
+#### Callbacks
+**control_reference_callback** the control reference callback takes as an argument the ref_param message as a constant pointer, this will call the set_reference from the control system class with the desired motor (called in the vector object) to set the reference
+
+**control_tune_callback** the control tune callback takes as an argument the tune_param message as a constant pointer, this will call the set_all_param from the control system class with the desired motor (called in the vector object) to set the three tuning parameters
+
+**encoder_velocity_callback** the enconder velocity callback takes as an argument the encoder_value message as a constant pointer, this callback is called whenever data form the motor encoder is being sent (it must be the same refresh frequency as the system), this will call the update function from the control system class for both the motors that then will proceed to the PID algorithm and return the pwm values for both systems, this will then publish data to the motor using the pwm_output message
+
+
+### Main 
+The main takes two arguments that are used in the ROS iniciation then initiates the ros node with the name "velocity control", then creates the node_manager, and at last ros::spin() allows for the program be idle until a message arrives which then calls the function and then the callback function.
 
 ## Simulation
+The simulation node is just a simple representation of the motor, which will take in the pwm value of the system and output the corresponding motor velocity. The system returns data at a said refresh rate asuming that it is a microcontroller that send data in intervals. To adquire the data I set a formula that looked closed to the normal response of a duty cycle with respect to the RPM. I got this simulation from a research paper: 
 
 # My prototype 
-
+I used this packet with my own robot to have a robust control system (see robot). The pid algorithm is succesful with my parameters and allows for an easy implementation of the system. You can see a video of the demo in the video folder.
 # rubric
 
-System control class
-
-
-
-output and interpretation
-
-rubric

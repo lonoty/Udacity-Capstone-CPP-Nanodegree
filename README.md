@@ -45,7 +45,7 @@ rosrun rqt_plot rqt_plot
 You can now add the topics that being sent on the system, by adding the topics using the "+" button. Note: If you dont input any reference (see *user input*) all the values will be 0, therefore we must input to see the response of the system.
  ADD PHOTO
 
-### User Input
+# User Input
 #### Set the Reference (Target Velocity of the Motor)
 We can input the reference velocity via the "ref_param" topic (in depth explanation in code documentation) for this we use "rostopic pub" to manualy publish data. If you already have a Node that can publish reference velocity of your robot you can just publish to the ref_param using the ref_param.msg (more in depth in explanation). We can set which motor we want to set the reference velocity "motor_num" (for this application it must be either 0 or 1) and the reference speed (only int)
 
@@ -67,6 +67,11 @@ kp: 0.0
 ki: 0.0
 kd: 0.0" 
 ```
+# Code documentation
+## Control System Class
+## Velocity Control
+## Simulation
+
 
 System control class
 

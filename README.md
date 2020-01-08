@@ -110,7 +110,9 @@ double get_kd();
 ```
 ### functions
 The system only consist of two functions:
+
 **int update(int feedback)** : This function is the main algorithm of the PID implementation where the feedback (the encoder response) is taken as an argument then it returns an int tht is the Output PWM. Note: This function has to be called at the same time intervals set as the refresh rate. This is due to the discrete properties of this controller.
+
 **int saturate(int value)** : This fuction is a saturation fuction that allows for a maximum and minimum output to be retuned, this helps to the system to not exeed the physical/electrical demands of a system.
 
 ## Velocity Control

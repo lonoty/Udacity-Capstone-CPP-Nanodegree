@@ -75,21 +75,46 @@ The control system class (control_system.cpp) is a class that implements a PID s
 ### Main Parameters
 The main parameters of this system are in the private sectoin of the class so that a user can't modify data without using setters and getters, the parameters are as follows
 
-- **double _refresh_time{.1}** : the refresh rate of the system (this has to run at the same frequency as the update function is being run)
-- **double _kp{1}, _kd{1}, _ki{1}** : tuning parameters of system
-- **int _saturationLOW{0}, _saturationHIGH{100}** : saturation range (this helpes the system have limit so that the output is controlled)
-- **double _prev_derivative{0}, _prev_error{0}** : preveious values to take deviative and integral value
-- **double integral** : accumulation of the error to get integral
-- **double _reference{0}** : the reference of the system
+- **double _refresh_time{.1}** : The refresh rate of the system 
+- **double _kp{1}, _kd{1}, _ki{1}** : Tuning parameters of system
+- **int _saturationLOW{0}, _saturationHIGH{100}** : Saturation range (this helpes the system have limit so that the output is controlled)
+- **double _prev_derivative{0}, _prev_error{0}** : Preveious values to take deviative and integral value
+- **double integral** : Accumulation of the error to get integral
+- **double _reference{0}** : The reference of the system
 
 ### Constructors
 This system uses contructor overloading to have flexibility on the use and how a user can start the system.
 ```
+control_sys();
 control_sys(double kp, double ki, double kd);
 control_sys(double kp, double ki, double kd, double refresh);
 control_sys(double kp, double ki, double kd, double refresh, int satLOW, int satHIGH, double reference);
 ```
+### getters and setters
+The getters and setters allow for a flexible and very tuneable operation of the system
+```
+//setters
+void set_reference(double reference);
+void set_saturation_range(int satLOW, int satHIGH);
+void set_all_param(double kp , double ki, double kd);
+void set_kp(double kp);
+void set_ki(double ki);
+void set_kd(double kd);
+//getters
+double get_reference();
+int get_saturation_low();
+int get_saturation_high();
+double get_kp();
+double get_ki();
+double get_kd();
+```
+### functions
+The system only consist of two functions:
+**int update(int feedback)** : This function is the main algorithm of the PID implementation where the feedback (the encoder response) is taken as an argument then it returns an int tht is the Output PWM. Note: This function has to be called at the same time intervals set as the refresh rate. This is due to the discrete properties of this controller.
+**int saturate(int value)** : This fuction is a saturation fuction that allows for a maximum and minimum output to be retuned, this helps to the system to not exeed the physical/electrical demands of a system.
+
 ## Velocity Control
+
 ## Simulation
 
 # My prototype 

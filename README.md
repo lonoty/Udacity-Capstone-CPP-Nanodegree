@@ -42,16 +42,35 @@ source /opt/ros/{distro}/setup.bash
 source  ~/nanodegree_ws/devel/setup.bash
 rosrun rqt_plot rqt_plot
 ```
-You can now add the topics that being sent on the system, by adding the topics using the "+" button
+You can now add the topics that being sent on the system, by adding the topics using the "+" button. Note: If you dont input any reference (see *user input*) all the values will be 0, therefore we must input to see the response of the system.
  ADD PHOTO
 
+### User Input
+#### Set the Reference (Target Velocity of the Motor)
+We can input the reference velocity via the "ref_param" topic (in depth explanation in code documentation) for this we use "rostopic pub" to manualy publish data. If you already have a Node that can publish reference velocity of your robot you can just publish to the ref_param using the ref_param.msg (more in depth in explanation). We can set which motor we want to set the reference velocity "motor_num" (for this application it must be either 0 or 1) and the reference speed (only int)
 
+```
+source /opt/ros/{distro}/setup.bash
+source  ~/nanodegree_ws/devel/setup.bash
+rostopic pub /reference capstone/ref_param "motor_num: 0
+ref: 100" 
+"
+```
+#### Set the PID Tune parameters (kp,ki,kd)
+We can input the Tune parameters via the "tune_param" topic (in depth explanation in code documentation) for this we use "rostopic pub" to manualy publish data. If you already have a Node that can publish tuning data (maybe a auto pid tuner) you can publish to the tune_param using the tune_param.msg (more in depth in explanation). We can set which motor we want to set the tune parameters "motor_num" (for this application it must be either 0 or 1) and the respective kp, ki, and kd parameters (float values).
 
-
+```
+source /opt/ros/{distro}/setup.bash
+source  ~/nanodegree_ws/devel/setup.bash
+rostopic pub /tune_param capstone/tune_param "motor_num: 0
+kp: 0.0
+ki: 0.0
+kd: 0.0" 
+```
 
 System control class
 
-thread creation and execution
+
 
 output and interpretation
 

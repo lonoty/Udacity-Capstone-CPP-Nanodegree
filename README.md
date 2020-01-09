@@ -33,7 +33,7 @@ IN A SPEARATE TERMINAL TAB
 ```
 source /opt/ros/{distro}/setup.bash
 source  ~/nanodegree_ws/devel/setup.bash
-rosrun capstone simulation
+rosrun capstone motor_simulation
 ```
 #### 5.Run the plotter
 One the nodes are running you can graph the control system to see how it responds and make further adjustments to the control system, we will use rqt_plot to do this.

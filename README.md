@@ -70,7 +70,7 @@ kd: 0.0"
 ```
 # Code documentation
 The system uses ROS messages to communicate from node to node, in this case the control system by it self is a node that recieves the encoder velocity data and outputs the proper PWM signal to be process. Meanwhile the there must be another node or nodes that actually interpert the PWM and outputs it to the motor it can be a moto-rcontroller that takes in a byte 0-255 to represent the duty cycle of the PWM. Another system then must inteprete the motor movement using encoder and return the velocity of the system. This can be seen as the node representation of the system (see image).
-![node](https://github.com/lonoty/Udacity-Capstone-CPP-Nanodegree/blob/master/img/node.png)
+![node](https://github.com/lonoty/Udacity-Capstone-CPP-Nanodegree/blob/master/img/nodes.png)
 ## Control System Class
 The control system class (control_system.cpp) is a class that implements a PID system in a class where there are tuneable parameters, refresh time and reference. The system by it self can be implemented on anything that needs a pid, this is due to the flexibility and versatibility of the system, it only applies a general PID system meanwhile the velocity control adapts it to motor velocity needs.
 ### Main Parameters
@@ -113,9 +113,9 @@ double get_kd();
 The system only consist of two functions:
 
 **int update(int feedback)** : This function is the main algorithm of the PID implementation where the feedback (the encoder response) is taken as an argument then it returns an int tht is the Output PWM. Note: This function has to be called at the same time intervals set as the refresh rate. This is due to the discrete properties of this controller.
-![node](https://github.com/lonoty/Udacity-Capstone-CPP-Nanodegree/blob/master/img/PID.png)
+![pid](https://github.com/lonoty/Udacity-Capstone-CPP-Nanodegree/blob/master/img/PID.png)
 **int saturate(int value)** : This fuction is a saturation fuction that allows for a maximum and minimum output to be retuned, this helps to the system to not exeed the physical/electrical demands of a system.
-![node](https://github.com/lonoty/Udacity-Capstone-CPP-Nanodegree/blob/master/img/saturate.png)
+![sat](https://github.com/lonoty/Udacity-Capstone-CPP-Nanodegree/blob/master/img/saturation.png)
 ## Velocity Control
 The velocity Control program (velocity_control.cpp) is the contains main code where the it implements the PID system class to the needs of velocity control and also integrates it with ROS messages so it can be used as a node.
 

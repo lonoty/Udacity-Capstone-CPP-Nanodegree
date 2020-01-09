@@ -42,8 +42,8 @@ source /opt/ros/{distro}/setup.bash
 source  ~/nanodegree_ws/devel/setup.bash
 rosrun rqt_plot rqt_plot
 ```
-You can now add the topics that being sent on the system, by adding the topics using the "+" button. Note: If you dont input any reference (see *user input*) all the values will be 0, therefore we must input to see the response of the system.
- ADD PHOTO
+You can now add the topics that being sent on the system, by adding the topics on the textbox write /encoder_vel and /motor_pwm using the "+" button you create them. Note: If you don't input any reference (see *user input*) all the values will be 0, therefore we must input to see the response of the system.
+ 
 
 # User Input
 #### Set the Reference (Target Velocity of the Motor)

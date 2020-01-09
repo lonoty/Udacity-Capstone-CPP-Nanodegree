@@ -25,7 +25,7 @@ IN A SPEARATE TERMINAL TAB
 ```
 source /opt/ros/{distro}/setup.bash
 source  ~/nanodegree_ws/devel/setup.bash
-rosrun Udacity-Capstone-CPP-Nanodegree control
+rosrun capstone control
 ```
 #### 4.Run the motor simulation
 (OPTIONAL) This part is optional becuase for testing purposes and if there is no robot currently being used but it allows for simulation of an physical motor.
@@ -33,7 +33,7 @@ IN A SPEARATE TERMINAL TAB
 ```
 source /opt/ros/{distro}/setup.bash
 source  ~/nanodegree_ws/devel/setup.bash
-rosrun Udacity-Capstone-CPP-Nanodegree simulation
+rosrun capstone simulation
 ```
 #### 5.Run the plotter
 One the nodes are running you can graph the control system to see how it responds and make further adjustments to the control system, we will use rqt_plot to do this.

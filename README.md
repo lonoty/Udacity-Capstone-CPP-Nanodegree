@@ -159,5 +159,31 @@ The simulation node is just a simple representation of the motor, which will tak
 
 # My prototype 
 I used this packet with my own robot to have a robust control system (see robot). The pid algorithm is succesful with my parameters and allows for an easy implementation of the system. You can see a video of the demo in the video folder.
-# rubric
+# Rubric
+-The project demonstrates an understanding of C++ functions and control structures.
+  -while loop in motor_node.cpp(line. 39)
+  -if statemet in motor_node.cpp(line. 43)
+-The project accepts user input and processes the input.
+  -This can be seen in the user input section of the readme.md
+  -Takes a callback that is given by the user to set reference of motor in velocity_control.cpp (line. 22)
+  -takes a callback that is given by the user to set tune variables of the motor in velocity_control.cpp (line.32)
+-The project uses Object Oriented Programming techniques.
+  -Class used for the motor pid called control_sys control_system.h (line. 7)
+  -class used for the node manager velocity_control.h (line. 10)
+-Classes use appropriate access specifiers for class members.
+  -Access specifiers for control_sys class control_system.h (line. 33)
+  -Access specifiers for node managerclass velocity_control.h (line. 17)
+-Class constructors utilize member initialization lists.
+  -constructors utilize it in control_sys class control_system.cpp (line.3-5)
+-Classes abstract implementation details from their interfaces.
+  -the readme.md is a formal documentation of the code
+  -variables are also commented in program for clarity control_system.h (line. 34 - 46)
+-Classes encapsulate behavior.
+  -the control_sys class by it self can work in other applications because it has all the required parameters to work out of this context of velocity control  control_system.h (line. 7)
+-Overloaded functions allow the same function to operate on different parameters.
+  -the constructor of the control_sys class can be iniciated in multiple ways depending in the need of the user control_system.h (line 9-12)
+-The project makes use of references in function declarations.
+  -ROS uses
+-The project uses smart pointers instead of raw pointers.
 
+  
